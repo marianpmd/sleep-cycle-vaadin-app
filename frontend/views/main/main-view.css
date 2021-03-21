@@ -1,0 +1,15 @@
+label{
+  font-size: var(--lumo-font-size-xl);
+  background-color: var(--lumo-base-color);
+  color: var(--lumo-primary-text-color);
+  line-height: normal;
+}
+
+p{
+  font-size: var(--lumo-font-size-xl);
+  background-color: var(--lumo-primary-color-10pct);
+  border-radius: 25px;
+  padding: 20px;
+  color: var(--lumo-primary-text-color);
+  line-height: normal;
+}
