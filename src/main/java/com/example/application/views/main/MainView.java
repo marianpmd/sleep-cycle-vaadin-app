@@ -1,5 +1,6 @@
 package com.example.application.views.main;
 
+import com.example.application.backend.SleepCycleCalculator;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
@@ -15,11 +16,16 @@ import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.server.StreamResource;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import org.apache.naming.ServiceRef;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.io.ByteArrayInputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 
 @CssImport("./views/main/main-view.css")
@@ -36,6 +42,9 @@ public class MainView extends VerticalLayout {
             "sleep cycles. This calculator can help you establish your bedtimes, in order to wake up well rested");
 
     private final Details details = new Details();
+
+    @Autowired
+    private SleepCycleCalculator calculator;
 
     public MainView() {
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
@@ -78,7 +87,15 @@ public class MainView extends VerticalLayout {
 
     private void computeAndShowTimes() {
 
-        LocalDateTime now = LocalDateTime.now();
+        List<String> strings = calculator.computeAllCycles();
+        for (String x : strings){
+            Label label = new Label(x + " AM ");
+            label.getElement().getStyle().set("font-size","14px");
+            hLayout.add(label);
+            hLayout.setSpacing(true);
+        }
+
+        /*LocalDateTime now = LocalDateTime.now();
         final int averageFallingAsleepTime = 14;
         String[] wakeTimes = new String[7];
 
@@ -90,7 +107,7 @@ public class MainView extends VerticalLayout {
             label.getElement().getStyle().set("font-size","14px");
             hLayout.add(label);
             hLayout.setSpacing(true);
-        }
+        }*/
 
     }
 
